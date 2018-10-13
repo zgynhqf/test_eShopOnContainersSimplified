@@ -4,7 +4,7 @@ services:
   sql.data:
     image: microsoft/mssql-server-linux:2017-latest
 
-  identity.api:
+  eshopSimplifiedIdentity.api:
     image: eshopSimplified/identity.api:${TAG:-latest}
     build:
       context: .
