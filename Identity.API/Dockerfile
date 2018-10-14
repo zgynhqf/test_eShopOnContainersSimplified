@@ -2,18 +2,20 @@ FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/dotnet:2.1-sdk as dotnet-build
+FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-
-FROM dotnet-build as build
-WORKDIR /src
+COPY ["Identity.API/Identity.API.csproj", "Identity.API/"]
+COPY ["BuildingBlocks/HealthChecks/Microsoft.Extensions.HealthChecks.SqlServer/Microsoft.Extensions.HealthChecks.SqlServer.csproj", "BuildingBlocks/HealthChecks/Microsoft.Extensions.HealthChecks.SqlServer/"]
+COPY ["BuildingBlocks/HealthChecks/Microsoft.Extensions.HealthChecks/Microsoft.Extensions.HealthChecks.csproj", "BuildingBlocks/HealthChecks/Microsoft.Extensions.HealthChecks/"]
+COPY ["BuildingBlocks/HealthChecks/Microsoft.AspNetCore.HealthChecks/Microsoft.AspNetCore.HealthChecks.csproj", "BuildingBlocks/HealthChecks/Microsoft.AspNetCore.HealthChecks/"]
+COPY ["BuildingBlocks/WebHostCustomization/WebHost.Customization/WebHost.Customization.csproj", "BuildingBlocks/WebHostCustomization/WebHost.Customization/"]
+RUN dotnet restore "Identity.API/Identity.API.csproj"
 COPY . .
-WORKDIR /src/src/Services/Identity/Identity.API
-RUN dotnet restore -nowarn:msb3202,nu1503
-RUN dotnet build --no-restore -c Release -o /app
+WORKDIR "/src/Identity.API"
+RUN dotnet build "Identity.API.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish --no-restore -c Release -o /app
+RUN dotnet publish "Identity.API.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app

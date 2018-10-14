@@ -4,8 +4,8 @@ services:
   sql.data:
     image: microsoft/mssql-server-linux:2017-latest
 
-  eshopSimplifiedIdentity.api:
-    image: eshopSimplified/identity.api:${TAG:-latest}
+  identity.simplified.api:
+    image: identity.simplified.api:${TAG:-latest}
     build:
       context: .
       dockerfile: Identity.API/Dockerfile
