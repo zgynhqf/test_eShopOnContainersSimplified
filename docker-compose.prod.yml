@@ -41,3 +41,6 @@ services:
       - ACCEPT_EULA=Y
     ports:
       - "5433:1433"    # Important: In a production environment your should remove the external port
+  ocelotapi.simplified:
+    ports:
+      - "5100:80"

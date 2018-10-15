@@ -1,0 +1,45 @@
+﻿{
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/api/{version}/{everything}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "marketing.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/api/{version}/m/{everything}",
+            "UpstreamHttpMethod": []
+        },
+
+        {
+            "DownstreamPathTemplate": "/connect/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "identity.simplified.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/connect/{catchAll}",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/.well-known/{catchAll}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "identity.simplified.api",
+                    "Port": 80
+                }
+            ],
+            "UpstreamPathTemplate": "/.well-known/{catchAll}",
+            "UpstreamHttpMethod": [ "Get" ]
+        }
+    ],
+    "GlobalConfiguration": {
+        "RequestIdKey": "OcRequestId",
+        "AdministrationPath": "/administration"
+    }
+}

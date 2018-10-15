@@ -11,3 +11,10 @@ services:
       dockerfile: Identity.API/Dockerfile
     depends_on:
       - sql.data
+  ocelotapi.simplified:
+    image: ocelotapi.simplified:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: ApiGw-Base/Dockerfile
+    depends_on:
+      - identity.simplified.api

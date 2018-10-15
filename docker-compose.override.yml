@@ -32,4 +32,7 @@ services:
       - ApplicationInsights__InstrumentationKey=${INSTRUMENTATION_KEY}
       - OrchestratorType=${ORCHESTRATOR_TYPE}
     ports:
-      - "5105:80"   
+      - "5105:80"
+  ocelotapi.simplified:
+    ports:
+      - "5100:80"
